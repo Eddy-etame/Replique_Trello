@@ -1,8 +1,16 @@
-<h2>Détail du projet</h2>
+<section class="page">
+  <header class="page-header">
+    <h2>Détail du projet</h2>
+    <p class="subtitle">Informations complètes sur le projet sélectionné.</p>
+  </header>
 
-<div *ngIf="projet">
-  <h3>{{ projet.nom }}</h3>
-  <p>{{ projet.statut }}</p>
-</div>
+  <div class="detail-card" *ngIf="projet">
+    <h3 class="project-title">{{ projet.nom }}</h3>
+    <p class="project-status">{{ projet.statut }}</p>
+  </div>
 
-<p *ngIf="!projet">Projet introuvable</p>
+  <div class="empty-state" *ngIf="!projet">
+    <p>Projet introuvable</p>
+    <a class="detail-link" routerLink="/">Retour à la liste</a>
+  </div>
+</section>

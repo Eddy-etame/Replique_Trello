@@ -1,7 +1,16 @@
-<h2>Liste des projets</h2>
+<section class="page">
+  <header class="page-header">
+    <h2>Liste des projets</h2>
+    <p class="subtitle">Retrouvez tous vos projets en un coup d’oeil.</p>
+  </header>
 
-<div *ngFor="let projet of projets()">
-  <h3>{{ projet.nom }}</h3>
-  <p>{{ projet.statut }}</p>
-  <a [routerLink]="['/projet', projet.id]">Voir détail</a>
-</div>
+  <div class="project-list">
+    <article class="project-card" *ngFor="let projet of projets()">
+      <div class="project-main">
+        <h3 class="project-title">{{ projet.nom }}</h3>
+        <p class="project-status">{{ projet.statut }}</p>
+      </div>
+      <a class="detail-link" [routerLink]="['/projet', projet.id]">Voir détail</a>
+    </article>
+  </div>
+</section>

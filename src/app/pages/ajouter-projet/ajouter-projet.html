@@ -1,15 +1,32 @@
-<h2>Ajouter un projet</h2>
+<section class="page">
+  <header class="page-header">
+    <h2>Ajouter un projet</h2>
+    <p class="subtitle">Créez un nouveau projet en quelques secondes.</p>
+  </header>
 
-<form (ngSubmit)="addProjet()">
-  <div>
-    <label for="nom">Nom du projet</label>
-    <input id="nom" name="nom" [(ngModel)]="projetService.nom" required />
-  </div>
+  <form class="form-card" (ngSubmit)="addProjet()">
+    <div class="field">
+      <label for="nom">Nom du projet</label>
+      <input
+        id="nom"
+        name="nom"
+        [(ngModel)]="projetService.nom"
+        placeholder="Ex : Refonte site 2026"
+        required
+      />
+    </div>
 
-  <div>
-    <label for="statut">Statut du projet</label>
-    <input id="statut" name="statut" [(ngModel)]="projetService.statut" required />
-  </div>
+    <div class="field">
+      <label for="statut">Statut du projet</label>
+      <input
+        id="statut"
+        name="statut"
+        [(ngModel)]="projetService.statut"
+        placeholder="Ex : En cours"
+        required
+      />
+    </div>
 
-  <button type="submit">Ajouter</button>
-</form>
+    <button type="submit">Ajouter</button>
+  </form>
+</section>
