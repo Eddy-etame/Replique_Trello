@@ -7,6 +7,31 @@
   <div class="detail-card" *ngIf="projet">
     <h3 class="project-title">{{ projet.nom }}</h3>
     <p class="project-status">{{ projet.statut }}</p>
+
+    <section class="subtasks">
+      <h4>Sous-tâches</h4>
+
+      <ul *ngIf="projet.sousTaches.length; else noSubtasks">
+        <li *ngFor="let sousTache of projet.sousTaches">
+          <span>{{ sousTache.titre }}</span>
+        </li>
+      </ul>
+
+      <ng-template #noSubtasks>
+        <p class="empty-subtasks">Aucune sous-tâche pour le moment.</p>
+      </ng-template>
+
+      <form class="subtask-form" (ngSubmit)="ajouterSousTache()">
+        <input
+          type="text"
+          name="nouveauTitre"
+          placeholder="Ajouter une sous-tâche"
+          [(ngModel)]="nouveauTitre"
+          required
+        />
+        <button type="submit">Ajouter</button>
+      </form>
+    </section>
   </div>
 
   <div class="empty-state" *ngIf="!projet">
