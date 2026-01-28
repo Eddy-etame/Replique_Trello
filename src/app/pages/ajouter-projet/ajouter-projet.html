@@ -1,0 +1,15 @@
+<h2>Ajouter un projet</h2>
+
+<form (ngSubmit)="addProjet()">
+  <div>
+    <label for="nom">Nom du projet</label>
+    <input id="nom" name="nom" [(ngModel)]="projetService.nom" required />
+  </div>
+
+  <div>
+    <label for="statut">Statut du projet</label>
+    <input id="statut" name="statut" [(ngModel)]="projetService.statut" required />
+  </div>
+
+  <button type="submit">Ajouter</button>
+</form>

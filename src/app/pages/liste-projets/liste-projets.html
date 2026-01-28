@@ -1,0 +1,7 @@
+<h2>Liste des projets</h2>
+
+<div *ngFor="let projet of projets()">
+  <h3>{{ projet.nom }}</h3>
+  <p>{{ projet.statut }}</p>
+  <a [routerLink]="['/projet', projet.id]">Voir détail</a>
+</div>

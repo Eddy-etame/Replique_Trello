@@ -1,0 +1,8 @@
+<h2>Détail du projet</h2>
+
+<div *ngIf="projet">
+  <h3>{{ projet.nom }}</h3>
+  <p>{{ projet.statut }}</p>
+</div>
+
+<p *ngIf="!projet">Projet introuvable</p>
