@@ -18,9 +18,11 @@ export class AjouterProjet {
     this.projetService.addProjet({
       nom: this.projetService.nom,
       statut: this.projetService.statut,
+      dateEcheance: this.projetService.dateEcheance,
     });
     this.projetService.nom = '';
     this.projetService.statut = '';
-    this.router.navigate(['/']);
+    this.projetService.dateEcheance = '';
+    this.router.navigate(['/liste-projets']);
   }
 }

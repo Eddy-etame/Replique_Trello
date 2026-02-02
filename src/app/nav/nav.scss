@@ -1,0 +1,102 @@
+ :host {
+  display: block;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e4e7eb;
+  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.06);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1f2933;
+}
+
+.brand-tagline {
+  font-size: 0.9rem;
+  color: #7b8794;
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #1f2933;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #e4e7eb;
+}
+
+.nav-link:hover {
+  background: #eef2ff;
+}
+
+.user-area {
+  position: relative;
+}
+
+.user-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: #1d4ed8;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.user-menu {
+  position: absolute;
+  right: 0;
+  top: 48px;
+  min-width: 160px;
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  background: #ffffff;
+  border: 1px solid #e4e7eb;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.12);
+  z-index: 10;
+}
+
+.user-menu a,
+.user-menu button {
+  text-decoration: none;
+  color: #1f2933;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.user-menu a:hover,
+.user-menu button:hover {
+  background: #f1f5f9;
+}

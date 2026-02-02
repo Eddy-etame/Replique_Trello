@@ -27,6 +27,17 @@
       />
     </div>
 
+    <div class="field">
+      <label for="dateEcheance">Date d'échéance</label>
+      <input
+        id="dateEcheance"
+        name="dateEcheance"
+        type="date"
+        [(ngModel)]="projetService.dateEcheance"
+        required
+      />
+    </div>
+
     <button type="submit">Ajouter</button>
   </form>
 </section>

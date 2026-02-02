@@ -4,38 +4,132 @@
     <p class="subtitle">Informations complètes sur le projet sélectionné.</p>
   </header>
 
-  <div class="detail-card" *ngIf="projet">
-    <h3 class="project-title">{{ projet.nom }}</h3>
-    <p class="project-status">{{ projet.statut }}</p>
+  <div class="detail-card" *ngIf="projet as project">
+    <div class="project-meta">
+      <div>
+        <h3 class="project-title">{{ project.nom }}</h3>
+        <p class="project-status">{{ project.statut }}</p>
+        <p class="project-date">Échéance : {{ project.dateEcheance }}</p>
+      </div>
+      <div class="project-actions">
+        <label class="check">
+          <input
+            type="checkbox"
+            [checked]="project.done"
+            (change)="toggleProjectDone($any($event.target).checked)"
+          />
+          Fini
+        </label>
+        <div class="progress-buttons">
+          <button type="button" (click)="setProjectProgress('todo')">To-do</button>
+          <button type="button" (click)="setProjectProgress('ongoing')">En cours</button>
+        </div>
+      </div>
+    </div>
 
     <section class="subtasks">
-      <h4>Sous-tâches</h4>
+      <div class="subtasks-header">
+        <h4>Sous-tâches</h4>
+        <form class="subtask-form" (ngSubmit)="ajouterSousTache()">
+          <input
+            type="text"
+            name="nouveauTitre"
+            placeholder="Ajouter une sous-tâche"
+            [(ngModel)]="nouveauTitre"
+            required
+          />
+          <input
+            type="date"
+            name="nouvelleDateEcheance"
+            [(ngModel)]="nouvelleDateEcheance"
+            required
+          />
+          <button type="submit">Ajouter</button>
+        </form>
+      </div>
 
-      <ul *ngIf="projet.sousTaches.length; else noSubtasks">
-        <li *ngFor="let sousTache of projet.sousTaches">
-          <span>{{ sousTache.titre }}</span>
-        </li>
-      </ul>
+      <div class="board">
+        <div class="column" *ngFor="let column of columns">
+          <h5>{{ column.label }}</h5>
+          <div class="column-body">
+            <article class="task-card" *ngFor="let sousTache of getSubtasksForColumn(column.key)">
+              <div>
+                <p class="task-title">{{ sousTache.titre }}</p>
+                <p class="task-date">Échéance : {{ sousTache.dateEcheance }}</p>
+                <p class="task-assignee">
+                  Assigné à : {{ getAssigneeName(sousTache.assigneeId) }}
+                </p>
+              </div>
+              <div class="task-actions">
+                <label class="check">
+                  <input
+                    type="checkbox"
+                    [checked]="sousTache.done"
+                    (change)="toggleSubtaskDone(sousTache.id, $any($event.target).checked)"
+                  />
+                  Fini
+                </label>
+                <div class="progress-buttons">
+                  <button type="button" (click)="setSubtaskProgress(sousTache.id, 'todo')">
+                    To-do
+                  </button>
+                  <button type="button" (click)="setSubtaskProgress(sousTache.id, 'ongoing')">
+                    En cours
+                  </button>
+                </div>
+                <label class="assign">
+                  Assigner
+                  <select (change)="assignSubtask(sousTache.id, $any($event.target).value)">
+                    <option value="">Non assigné</option>
+                    <option
+                      *ngFor="let user of getAssignableUsers()"
+                      [value]="user.id"
+                      [selected]="user.id === sousTache.assigneeId"
+                    >
+                      {{ user.name }}
+                    </option>
+                  </select>
+                </label>
+              </div>
+            </article>
 
-      <ng-template #noSubtasks>
-        <p class="empty-subtasks">Aucune sous-tâche pour le moment.</p>
-      </ng-template>
+            <p class="empty-subtasks" *ngIf="!getSubtasksForColumn(column.key).length">
+              Aucune sous-tâche
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <form class="subtask-form" (ngSubmit)="ajouterSousTache()">
+    <section class="invite-card">
+      <h4>Inviter un collaborateur</h4>
+      <form class="invite-form" (ngSubmit)="sendInvite()">
         <input
-          type="text"
-          name="nouveauTitre"
-          placeholder="Ajouter une sous-tâche"
-          [(ngModel)]="nouveauTitre"
+          type="email"
+          name="inviteEmail"
+          placeholder="email@exemple.com"
+          [(ngModel)]="inviteEmail"
           required
         />
-        <button type="submit">Ajouter</button>
+        <input
+          type="text"
+          name="inviteRole"
+          placeholder="Rôle"
+          [(ngModel)]="inviteRole"
+        />
+        <button type="submit">Envoyer</button>
       </form>
+      <p class="invite-message" [class.error]="inviteError" *ngIf="inviteMessage">
+        {{ inviteMessage }}
+      </p>
+      <p class="invite-message" [class.error]="assignError" *ngIf="assignMessage">
+        {{ assignMessage }}
+      </p>
     </section>
   </div>
 
   <div class="empty-state" *ngIf="!projet">
     <p>Projet introuvable</p>
-    <a class="detail-link" routerLink="/">Retour à la liste</a>
+    <a class="detail-link" routerLink="/liste-projets">Retour à la liste</a>
   </div>
 </section>

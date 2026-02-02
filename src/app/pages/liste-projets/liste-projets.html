@@ -4,13 +4,41 @@
     <p class="subtitle">Retrouvez tous vos projets en un coup d’oeil.</p>
   </header>
 
-  <div class="project-list">
-    <article class="project-card" *ngFor="let projet of projets()">
-      <div class="project-main">
-        <h3 class="project-title">{{ projet.nom }}</h3>
-        <p class="project-status">{{ projet.statut }}</p>
+  <div class="board">
+    <div class="column" *ngFor="let column of columns">
+      <h3>{{ column.label }}</h3>
+      <div class="column-body">
+        <article class="project-card" *ngFor="let projet of getProjectsForColumn(column.key)">
+          <div class="project-main">
+            <h4 class="project-title">{{ projet.nom }}</h4>
+            <p class="project-status">{{ projet.statut }}</p>
+            <p class="project-date">Échéance : {{ projet.dateEcheance }}</p>
+          </div>
+          <div class="project-actions">
+            <label class="check">
+              <input
+                type="checkbox"
+                [checked]="projet.done"
+                (change)="toggleProjectDone(projet.id, $any($event.target).checked)"
+              />
+              Fini
+            </label>
+            <div class="progress-buttons">
+              <button type="button" (click)="setProjectProgress(projet.id, 'todo')">
+                To-do
+              </button>
+              <button type="button" (click)="setProjectProgress(projet.id, 'ongoing')">
+                En cours
+              </button>
+            </div>
+            <a class="detail-link" [routerLink]="['/projet', projet.id]">Voir détail</a>
+          </div>
+        </article>
+
+        <p class="empty-state" *ngIf="!getProjectsForColumn(column.key).length">
+          Aucun projet
+        </p>
       </div>
-      <a class="detail-link" [routerLink]="['/projet', projet.id]">Voir détail</a>
-    </article>
+    </div>
   </div>
 </section>

@@ -1,0 +1,51 @@
+<section class="page">
+  <div class="card" *ngIf="user; else noUser">
+    <h2>Mon compte</h2>
+    <p class="subtitle">Gérez votre profil et vos accès.</p>
+
+    <div class="info">
+      <p><strong>Nom :</strong> {{ user.name }}</p>
+      <p><strong>Email :</strong> {{ user.email }}</p>
+    </div>
+
+    <form (ngSubmit)="saveProfile()">
+      <div class="field">
+        <label for="name">Nom</label>
+        <input id="name" name="name" [(ngModel)]="name" required />
+      </div>
+
+      <div class="field">
+        <label for="oldPassword">Ancien mot de passe</label>
+        <input
+          id="oldPassword"
+          name="oldPassword"
+          type="password"
+          [(ngModel)]="oldPassword"
+          required
+        />
+      </div>
+
+      <div class="field">
+        <label for="newPassword">Nouveau mot de passe</label>
+        <input
+          id="newPassword"
+          name="newPassword"
+          type="password"
+          [(ngModel)]="newPassword"
+        />
+      </div>
+
+      <p class="message" [class.error]="isError" *ngIf="message">{{ message }}</p>
+
+      <button type="submit">Mettre à jour</button>
+    </form>
+
+    <button type="button" class="ghost" (click)="logout()">Se déconnecter</button>
+  </div>
+
+  <ng-template #noUser>
+    <div class="card">
+      <p>Veuillez vous connecter pour accéder à votre profil.</p>
+    </div>
+  </ng-template>
+</section>

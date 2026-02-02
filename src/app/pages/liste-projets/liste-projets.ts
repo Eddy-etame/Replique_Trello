@@ -11,10 +11,29 @@ import { ProjetService } from '../../services/projet.service';
   styleUrl: './liste-projets.scss',
 })
 export class ListeProjets {
+  columns = [
+    { key: 'todo', label: 'To-do' },
+    { key: 'ongoing', label: 'En cours' },
+    { key: 'overdue', label: 'En retard' },
+    { key: 'done', label: 'Fini' },
+  ] as const;
+
   constructor(private projetService: ProjetService) {
   }
 
-  get projets() {
-    return this.projetService.projets;
+  get columnsData() {
+    return this.projetService.projectsByColumn();
+  }
+
+  getProjectsForColumn(column: 'todo' | 'ongoing' | 'overdue' | 'done') {
+    return this.columnsData[column];
+  }
+
+  toggleProjectDone(projectId: number, done: boolean) {
+    this.projetService.toggleProjectDone(projectId, done);
+  }
+
+  setProjectProgress(projectId: number, progress: 'todo' | 'ongoing') {
+    this.projetService.setProjectProgress(projectId, progress);
   }
 }

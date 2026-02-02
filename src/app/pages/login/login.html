@@ -1,0 +1,48 @@
+<section class="page">
+  <div class="card">
+    <h2>{{ mode === 'login' ? 'Connexion' : 'Créer un compte' }}</h2>
+    <p class="subtitle">
+      {{ mode === 'login'
+        ? 'Accédez à vos projets et vos équipes.'
+        : 'Rejoignez EBS‑Trail en quelques secondes.' }}
+    </p>
+
+    <form (ngSubmit)="submit()">
+      <div class="field" *ngIf="mode === 'signup'">
+        <label for="name">Nom complet</label>
+        <input id="name" name="name" [(ngModel)]="name" required />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" [(ngModel)]="email" required />
+      </div>
+
+      <div class="field">
+        <label for="password">Mot de passe</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          [(ngModel)]="password"
+          minlength="6"
+          required
+        />
+      </div>
+
+      <p class="message" [class.error]="isError" *ngIf="message">{{ message }}</p>
+
+      <button type="submit">
+        {{ mode === 'login' ? 'Se connecter' : 'Créer mon compte' }}
+      </button>
+    </form>
+
+    <button class="ghost" type="button" (click)="toggleMode()">
+      {{ mode === 'login'
+        ? 'Pas de compte ? Créer un compte'
+        : 'Déjà inscrit ? Se connecter' }}
+    </button>
+
+    <a class="home-link" routerLink="/">Retour à l'accueil</a>
+  </div>
+</section>
